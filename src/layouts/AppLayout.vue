@@ -80,16 +80,16 @@ header {
 
 .sidebar {
   position: fixed;
-  top: 60px; /* altura do header */
-  left: -220px; /* escondida inicialmente */
+  top: 60px;
+  left: -220px;
   width: 220px;
-  height: calc(100vh - 60px - 50px); /* full viewport - header - footer */
+  height: calc(100vh - 60px - 50px);
   background: #fff5b1;
   padding: 1rem;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   overflow-y: auto;
   transition: left 0.3s ease;
-  z-index: 1050;
+  z-index: 1150;
 }
 
 .sidebar.open {
