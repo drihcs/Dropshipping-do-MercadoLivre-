@@ -80,24 +80,25 @@ header {
 
 .sidebar {
   position: fixed;
-  top: 60px;
-  left: -220px;
-  width: 220px;
-  height: calc(100vh - 60px - 50px);
+  top: 60px;          /* começa logo abaixo do header */
+  bottom: 50px;       /* termina logo acima do footer */
+  left: -220px;       /* escondida por padrão */
+  width: 200px;
   background: #fff5b1;
-  padding: 1rem;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  overflow-y: auto;
   transition: left 0.3s ease;
-  z-index: 1150;
+  padding: 1rem;
+  overflow-y: auto;
+  z-index: 200;
 }
+
 
 .sidebar.open {
   left: 0;
 }
 
 .sidebar.closed {
-  left: -220px;
+  left: -230px;
 }
 
 .sidebar nav a {
