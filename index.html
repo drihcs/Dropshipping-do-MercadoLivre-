@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dropshipping do MercadoLivre - SPA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background: #f7f7f7;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #ffcc00;
+      padding: 1rem 2rem;
+      font-weight: bold;
+      font-size: 1.4rem;
+      display: flex;
+      gap: 1rem;
+    }
+    header a {
+      color: #222;
+      text-decoration: none;
+      cursor: pointer;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    header a:hover, header a.active {
+      background-color: #e6b800;
+    }
+    main#app {
+      flex: 1;
+      padding: 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #ffcc00;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #222;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #e6b800;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="#" data-page="home" class="active">Home</a>
+  <a href="#" data-page="minha-loja">Minha Loja</a>
+  <a href="#" data-page="gerar-itens">Gerar Itens</a>
+  <a href="#" data-page="login">Login / Cadastro</a>
+</header>
+
+<main id="app">
+  <!-- Conteúdo dinâmico vai aqui -->
+</main>
+
+<script>
+  // Conteúdos das páginas (HTML puros)
+  const pages = {
+    home: `
+      <h1>Bem-vinda ao Dropshipping do MercadoLivre</h1>
+      <p>Escolha uma das funções no menu para começar.</p>
+      <ul>
+        <li><strong>API Mercado Livre:</strong> integração rápida e prática.</li>
+        <li><strong>Minha Loja:</strong> gerencie seus produtos.</li>
+        <li><strong>Gerar Itens:</strong> crie produtos automaticamente.</li>
+        <li><strong>Login / Cadastro:</strong> acesse sua conta.</li>
+      </ul>
+    `,
+    'minha-loja': `
+      <h1>Minha Loja</h1>
+      <p>Aqui você poderá gerenciar seus produtos (simulação).</p>
+      <p><em>Funcionalidade em desenvolvimento...</em></p>
+    `,
+    'gerar-itens': `
+      <h1>Gerar Itens Automaticamente</h1>
+      <p>Simule a criação automática de produtos para sua loja.</p>
+      <button id="gerarBtn">Gerar Produto</button>
+      <ul id="listaProdutos"></ul>
+    `,
+    login: `
+      <h1>Login / Cadastro</h1>
+      <form id="loginForm">
+        <label for="email">Email:</label><br />
+        <input type="email" id="email" required /><br /><br />
+        <label for="senha">Senha:</label><br />
+        <input type="password" id="senha" required /><br /><br />
+        <button type="submit">Entrar</button>
+      </form>
+      <p id="msgLogin"></p>
+    `
+  };
+
+  const app = document.getElementById('app');
+  const navLinks = document.querySelectorAll('header a');
+
+  function loadPage(page) {
+    app.innerHTML = pages[page] || '<h2>Página não encontrada.</h2>';
+
+    // Atualiza classe active no menu
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.dataset.page === page);
+    });
+
+    // Executa funções específicas quando necessário
+    if (page === 'gerar-itens') {
+      setupGerarItens();
+    }
+    if (page === 'login') {
+      setupLogin();
+    }
+  }
+
+  function setupGerarItens() {
+    const gerarBtn = document.getElementById('gerarBtn');
+    const lista = document.getElementById('listaProdutos');
+    let contador = 1;
+
+    gerarBtn.addEventListener('click', () => {
+      const item = document.createElement('li');
+      item.textContent = `Produto gerado automaticamente #${contador++}`;
+      lista.appendChild(item);
+    });
+  }
+
+  function setupLogin() {
+    const form = document.getElementById('loginForm');
+    const msg = document.getElementById('msgLogin');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const email = form.email.value.trim();
+      const senha = form.senha.value.trim();
+
+      if (email && senha) {
+        msg.textContent = `Olá, ${email}! Login simulado com sucesso.`;
+        // Poderia direcionar para 'Minha Loja' após login
+        setTimeout(() => loadPage('minha-loja'), 1500);
+      } else {
+        msg.textContent = 'Preencha todos os campos corretamente.';
+      }
+    });
+  }
+
+  // Inicializa na página home
+  loadPage('home');
+
+  // Navegação ao clicar no menu
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      loadPage(link.dataset.page);
+    });
+  });
+</script>
+
+</body>
+</html>
