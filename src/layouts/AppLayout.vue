@@ -107,14 +107,14 @@ export default {
 /* Main content */
 main {
   margin-top: 56px;
-  padding: 1rem;
+  padding: 1rem 2rem; /* aumentei o padding horizontal */
   transition: margin-left 0.3s ease;
   margin-left: 0;
   min-height: calc(100vh - 56px - 40px);
 }
 
 .main--shifted {
-  margin-left: 220px;
+  margin-left: 240px; /* um pouco maior que a sidebar de 220px */
 }
 
 /* Footer */
