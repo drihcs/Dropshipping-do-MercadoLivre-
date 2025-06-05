@@ -88,7 +88,7 @@ header {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: left 0.3s ease;
   padding: 1rem;
-  padding-top: 1.5rem; /* <-- aumente aqui */
+  padding-top: 2rem; /* <-- aumente aqui */
   overflow-y: auto;
   z-index: 200;
 }
