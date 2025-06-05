@@ -2,6 +2,7 @@
   <div class="app-container">
     <header>
       <button @click="toggleSidebar" class="btn-menu">☰</button>
+
       <h1>Dropshipping do Mercado Livre</h1>
     </header>
 
@@ -15,7 +16,8 @@
       </nav>
     </aside>
 
-    <main :class="sidebarOpen ? 'sidebar-open' : 'sidebar-closed'" @click="closeSidebar">
+    <main :class="{ 'sidebar-open': sidebarOpen }">
+
       <router-view />
     </main>
 
