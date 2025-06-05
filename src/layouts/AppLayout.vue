@@ -80,18 +80,18 @@ header {
 
 .sidebar {
   position: fixed;
-  top: 60px;          /* começa logo abaixo do header */
-  bottom: 50px;       /* termina logo acima do footer */
-  left: -220px;       /* escondida por padrão */
+  top: 60px;
+  bottom: 50px;
+  left: -220px;
   width: 200px;
   background: #fff5b1;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: left 0.3s ease;
   padding: 1rem;
+  padding-top: 1.5rem; /* <-- aumente aqui */
   overflow-y: auto;
   z-index: 200;
 }
-
 
 .sidebar.open {
   left: 0;
