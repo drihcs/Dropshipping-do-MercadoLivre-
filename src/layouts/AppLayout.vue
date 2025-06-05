@@ -29,4 +29,5 @@ export default {
 </script>
 
 <style scoped>
+/* Se precisar de estilos específicos para o layout, pode colocar aqui */
 </style>
