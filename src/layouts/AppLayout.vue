@@ -117,13 +117,16 @@ header {
 }
 
 main {
-  margin-top: 60px; /* espaço do header */
-  margin-bottom: 50px; /* espaço do footer */
+  margin-top: 60px;       /* abaixo do header */
+  margin-bottom: 50px;    /* acima do footer */
   padding: 1rem;
-  min-height: calc(100vh - 60px - 50px);
+  flex-grow: 1;
   background: #fff8dc;
   transition: margin-left 0.3s ease;
+  z-index: 100;
+  position: relative;
 }
+
 
 main.sidebar-open {
   margin-left: 220px; /* espaço para sidebar aberta */
