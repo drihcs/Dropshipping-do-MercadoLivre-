@@ -1,97 +1,45 @@
 <template>
-  <div class="layout">
-    <!-- Header -->
-    <header class="header">
-      <button @click="toggleSidebar" class="menu-button">☰ Menu</button>
-      <h1>Dropshipping do MercadoLivre</h1>
+  <div>
+    <!-- Sidebar oculta -->
+    <aside
+      v-show="sidebarVisible"
+      class="fixed top-0 left-0 w-64 h-full bg-white shadow z-50 p-4 overflow-y-auto"
+    >
+      <button @click="toggleSidebar" class="text-red-600 font-bold mb-4">✕ Fechar</button>
+      <nav class="flex flex-col space-y-2">
+        <router-link to="/" class="hover:underline" exact>Início</router-link>
+        <router-link to="/api" class="hover:underline">API</router-link>
+        <router-link to="/fornecedores" class="hover:underline">Fornecedores</router-link>
+        <router-link to="/gerar-itens" class="hover:underline">Gerar Itens</router-link>
+        <router-link to="/minha-loja" class="hover:underline">Minha Loja</router-link>
+      </nav>
+    </aside>
+
+    <!-- Header fixo -->
+    <header class="bg-blue-600 text-white p-4 flex justify-between items-center fixed w-full top-0 z-40">
+      <button @click="toggleSidebar" class="text-white font-bold text-xl">☰</button>
+      <h1 class="text-xl">Dropshipping do Mercado Livre</h1>
     </header>
 
+    <!-- Espaço após header -->
+    <div class="h-20"></div>
+
     <!-- Conteúdo principal -->
-    <div class="content">
-      <!-- Sidebar visível se sidebarOpen for true -->
-      <Sidebar v-show="sidebarOpen" class="sidebar" />
+    <main class="p-6 pb-20">
+      <router-view />
+    </main>
 
-      <!-- Área de conteúdo principal -->
-      <main class="main">
-        <router-view />
-      </main>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-      &copy; {{ new Date().getFullYear() }} Todos os direitos reservados.
+    <!-- Footer fixo -->
+    <footer class="bg-blue-100 text-center text-sm p-4 w-full fixed bottom-0 z-30">
+      © 2025 Dropshipping do Mercado Livre. Todos os direitos reservados.
     </footer>
   </div>
 </template>
 
-<script>
-import Sidebar from './Sidebar.vue'
-
-export default {
-  name: 'AppLayout',
-  components: { Sidebar },
-  data() {
-    return {
-      sidebarOpen: false,
-    }
-  },
-  methods: {
-    toggleSidebar() {
-      this.sidebarOpen = !this.sidebarOpen
-    },
-  },
+<script setup>
+import { ref } from 'vue'
+const sidebarVisible = ref(false)
+const toggleSidebar = () => {
+  sidebarVisible.value = !sidebarVisible.value
 }
 </script>
-
-<style scoped>
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.header {
-  background-color: #004a99;
-  color: white;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.menu-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.25rem;
-  cursor: pointer;
-  margin-right: 1rem;
-}
-
-.content {
-  flex: 1;
-  display: flex;
-}
-
-.sidebar {
-  width: 250px;
-  background-color: #ffffff;
-  border-right: 1px solid #ddd;
-  padding: 1rem 0;
-}
-
-.main {
-  flex: 1;
-  padding: 24px;
-  background-color: #f5f5f5;
-}
-
-.footer {
-  background-color: #e9ecef;
-  text-align: center;
-  padding: 12px;
-  font-size: 14px;
-  color: #555;
-  border-top: 1px solid #ccc;
-}
-</style>
