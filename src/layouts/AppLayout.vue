@@ -1,36 +1,28 @@
 <template>
   <div>
-    <!-- Header -->
     <header class="header">
+      <button @click="toggleSidebar" class="toggle-btn">☰</button>
       <h1>Dropshipping do Mercado Livre</h1>
-      <nav>
-        <router-link to="/" exact-active-class="active-link">Início</router-link>
-        <router-link to="/api" exact-active-class="active-link">API</router-link>
-        <router-link to="/fornecedores" exact-active-class="active-link">Fornecedores</router-link>
-        <router-link to="/gerar-itens" exact-active-class="active-link">Gerar Itens</router-link>
-        <router-link to="/minha-loja" exact-active-class="active-link">Minha Loja</router-link>
-      </nav>
     </header>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <nav>
-        <router-link to="/" exact-active-class="active-link">Início</router-link>
-        <router-link to="/api" exact-active-class="active-link">API</router-link>
-        <router-link to="/fornecedores" exact-active-class="active-link">Fornecedores</router-link>
-        <router-link to="/gerar-itens" exact-active-class="active-link">Gerar Itens</router-link>
-        <router-link to="/minha-loja" exact-active-class="active-link">Minha Loja</router-link>
-      </nav>
-    </aside>
+    <div :class="['container', { 'sidebar-open': sidebarOpen }]">
+      <aside class="sidebar">
+        <nav>
+          <router-link to="/" exact>Início</router-link>
+          <router-link to="/api">API</router-link>
+          <router-link to="/fornecedores">Fornecedores</router-link>
+          <router-link to="/gerar-itens">Gerar Itens</router-link>
+          <router-link to="/minha-loja">Minha Loja</router-link>
+        </nav>
+      </aside>
 
-    <!-- Conteúdo principal -->
-    <main class="main-content">
-      <router-view />
-    </main>
+      <main class="main-content" @click="closeSidebarOnMobile">
+        <router-view />
+      </main>
+    </div>
 
-    <!-- Footer -->
     <footer class="footer">
-      &copy; {{ new Date().getFullYear() }} Dropshipping do Mercado Livre. Todos os direitos reservados.
+      © {{ new Date().getFullYear() }} Dropshipping do Mercado Livre. Todos os direitos reservados.
     </footer>
   </div>
 </template>
@@ -38,11 +30,25 @@
 <script>
 export default {
   name: "AppLayout",
+  data() {
+    return {
+      sidebarOpen: false,
+    };
+  },
+  methods: {
+    toggleSidebar() {
+      this.sidebarOpen = !this.sidebarOpen;
+    },
+    closeSidebarOnMobile() {
+      if (this.sidebarOpen && window.innerWidth < 768) {
+        this.sidebarOpen = false;
+      }
+    },
+  },
 };
 </script>
 
-<style scoped>
-/* Variáveis de cores */
+<style>
 :root {
   --amarelo: #fff5b1;
   --azul: #004aad;
@@ -55,93 +61,126 @@ export default {
   box-sizing: border-box;
 }
 
-/* Header */
+body, html, #app {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: var(--amarelo);
+  color: var(--azul);
+}
+
+/* Header fixo */
 .header {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 60px;
+  right: 0;
+  height: 50px;
   background-color: var(--amarelo);
-  color: var(--azul);
+  border-bottom: 2px solid var(--azul);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 1.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  z-index: 1100;
-  font-weight: bold;
-}
-
-.header h1 {
-  font-size: 1.25rem;
-}
-
-.header nav a {
+  padding: 0 16px;
+  z-index: 1000;
   color: var(--azul);
-  margin-left: 1rem;
-  text-decoration: none;
-  font-weight: 500;
 }
 
-.header nav a.active-link {
-  text-decoration: underline;
-  font-weight: 700;
+.toggle-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: var(--azul);
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.container {
+  display: flex;
+  padding-top: 50px; /* para não ficar atrás do header */
+  min-height: calc(100vh - 50px - 40px); /* altura total - header - footer */
+  transition: margin-left 0.3s ease;
 }
 
 /* Sidebar */
 .sidebar {
-  position: fixed;
-  top: 60px; /* altura do header */
-  left: 0;
   width: 220px;
-  height: calc(100vh - 60px - 50px); /* tela menos header e footer */
   background-color: var(--amarelo);
-  padding: 1rem;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  border-right: 2px solid var(--azul);
+  height: calc(100vh - 90px); /* altura: total - header - footer */
+  position: fixed;
+  top: 50px;
+  left: 0;
   overflow-y: auto;
-  z-index: 1050;
+  padding: 10px;
+  transition: transform 0.3s ease;
+  z-index: 999;
 }
 
-.sidebar nav a {
-  display: block;
-  color: var(--azul);
-  text-decoration: none;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
+/* Oculta sidebar no mobile */
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar-open .sidebar {
+    transform: translateX(0);
+  }
 }
 
-.sidebar nav a.active-link {
-  background-color: #e6d961;
-  font-weight: 700;
-  text-decoration: underline;
-}
-
-/* Main Content */
+/* Ajusta o conteúdo principal para não ficar atrás da sidebar */
 .main-content {
-  margin-top: 60px; /* espaço do header */
-  margin-left: 220px; /* espaço da sidebar */
-  margin-bottom: 50px; /* espaço do footer */
-  padding: 1.5rem;
-  min-height: calc(100vh - 60px - 50px);
-  background-color: #f9f9f9;
+  flex: 1;
+  margin-left: 220px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
 }
 
-/* Footer */
+@media (max-width: 767px) {
+  .main-content {
+    margin-left: 0;
+  }
+
+  .sidebar-open .main-content {
+    filter: brightness(0.7);
+    pointer-events: none;
+  }
+}
+
+/* Footer fixo */
 .footer {
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 50px;
-  width: 100%;
-  background-color: #f7f2d5;
+  right: 0;
+  height: 40px;
+  background-color: var(--amarelo);
+  border-top: 2px solid var(--azul);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--azul);
-  text-align: center;
-  line-height: 50px;
-  font-size: 0.875rem;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-  z-index: 1100;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+/* Links da sidebar */
+.sidebar nav a {
+  display: block;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  color: var(--azul);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar nav a.router-link-active {
+  background-color: var(--azul);
+  color: var(--amarelo);
+  font-weight: bold;
+}
+
+.sidebar nav a:hover {
+  background-color: #c0b558;
+  color: var(--amarelo);
 }
 </style>
