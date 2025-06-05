@@ -1,27 +1,108 @@
 <template>
-  <div class="p-6">
-    <h1 class="text-3xl font-bold mb-4">Gerar Itens da Loja</h1>
-    <p class="text-gray-700 mb-6">
-      Esta área será usada para importar e gerar automaticamente os produtos que vão para sua loja no Mercado Livre.
-    </p>
+  <section>
+    <h2>Gerar Itens</h2>
+    <form @submit.prevent="gerarItem">
+      <div class="form-group">
+        <label for="nome">Nome do Produto</label>
+        <input id="nome" v-model="nome" required />
+      </div>
 
-    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg">
-      <p class="font-medium">🚀 Recurso em construção</p>
-      <p>Os produtos cadastrados pelo fornecedor serão listados aqui e enviados automaticamente com um clique.</p>
-    </div>
+      <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" v-model="descricao" required></textarea>
+      </div>
 
-    <!-- Espaço reservado para futuro painel de importação -->
-    <div class="mt-8 text-center text-gray-400">
-      <span class="italic">[ Painel de seleção e envio de produtos aparecerá aqui ]</span>
+      <div class="form-group">
+        <label for="preco">Preço (R$)</label>
+        <input id="preco" type="number" step="0.01" v-model.number="preco" required />
+      </div>
+
+      <button type="submit">Gerar Produto</button>
+    </form>
+
+    <div v-if="produtoGerado" class="produto-gerado">
+      <h3>Produto gerado:</h3>
+      <p><strong>Nome:</strong> {{ produtoGerado.nome }}</p>
+      <p><strong>Descrição:</strong> {{ produtoGerado.descricao }}</p>
+      <p><strong>Preço:</strong> R$ {{ produtoGerado.preco.toFixed(2) }}</p>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
-  name: "GerarItens",
-};
+  name: 'GerarItens',
+  data() {
+    return {
+      nome: '',
+      descricao: '',
+      preco: null,
+      produtoGerado: null,
+    };
+  },
+  methods: {
+    gerarItem() {
+      this.produtoGerado = {
+        nome: this.nome,
+        descricao: this.descricao,
+        preco: this.preco,
+      };
+      // Limpar campos depois se quiser:
+      this.nome = '';
+      this.descricao = '';
+      this.preco = null;
+    }
+  }
+}
 </script>
 
 <style scoped>
+form {
+  background: #fff5b1;
+  padding: 1rem;
+  border-radius: 6px;
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #003366;
+  font-weight: bold;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ffd966;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+button {
+  background: #ffd966;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #003366;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #ffc107;
+}
+
+.produto-gerado {
+  margin-top: 1.5rem;
+  background: #ffffcc;
+  padding: 1rem;
+  border-radius: 6px;
+  color: #003366;
+}
 </style>

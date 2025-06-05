@@ -1,27 +1,20 @@
 <template>
-  <div class="p-6">
-    <h1 class="text-3xl font-bold mb-4">API Mercado Livre</h1>
-    <p class="text-gray-700 mb-6">
-      Aqui você poderá explorar categorias, produtos e dados fornecidos pela API oficial do Mercado Livre.
-    </p>
+  <section>
+    <h2>API do Dropshipping</h2>
+    <p>Aqui você encontra exemplos de como usar nossa API para consultar produtos e pedidos.</p>
 
-    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-lg">
-      <p class="font-medium">⚠️ Integração em desenvolvimento</p>
-      <p>Futuramente, essa seção permitirá buscar produtos, categorias e integrar diretamente com a API REST do Mercado Livre.</p>
-    </div>
-
-    <!-- Espaço reservado para futura integração -->
-    <div class="mt-8 text-center text-gray-400">
-      <span class="italic">[ Painel de testes com categorias e produtos virá aqui ]</span>
-    </div>
-  </div>
+    <pre class="code-sample">
+curl -X GET https://api.seusite.com/produtos
+    </pre>
+  </section>
 </template>
 
-<script>
-export default {
-  name: "ApiPage",
-};
-</script>
-
 <style scoped>
+.code-sample {
+  background: #fff5b1;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: monospace;
+  color: #003366;
+}
 </style>

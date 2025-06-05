@@ -1,37 +1,72 @@
 <template>
-  <div class="p-6">
-    <h1 class="text-3xl font-bold mb-4">Bem-vindo ao Dropshipping Mercado Livre</h1>
-    <p class="text-gray-700">
-      Este painel foi criado para lojistas que desejam gerenciar seus produtos com mais agilidade e integração.
-    </p>
-
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-white rounded-xl shadow-md p-4 border border-gray-200">
-        <h2 class="text-xl font-semibold mb-2">API Mercado Livre</h2>
-        <p>Visualize e conecte-se aos dados de produtos e categorias disponíveis na API.</p>
-      </div>
-      <div class="bg-white rounded-xl shadow-md p-4 border border-gray-200">
-        <h2 class="text-xl font-semibold mb-2">Fornecedores</h2>
-        <p>Cadastre, gerencie e acompanhe os fornecedores conectados ao sistema.</p>
-      </div>
-      <div class="bg-white rounded-xl shadow-md p-4 border border-gray-200">
-        <h2 class="text-xl font-semibold mb-2">Gerar Itens da Loja</h2>
-        <p>Adicione produtos automaticamente à sua loja com apenas um clique.</p>
-      </div>
-      <div class="bg-white rounded-xl shadow-md p-4 border border-gray-200">
-        <h2 class="text-xl font-semibold mb-2">Minha Loja</h2>
-        <p>Gerencie os produtos da sua loja: adicione, edite e exclua facilmente.</p>
+  <section>
+    <h2>Produtos em Destaque</h2>
+    <div class="products-grid">
+      <div class="product-card" v-for="product in products" :key="product.id">
+        <img :src="product.image" :alt="product.name" />
+        <h3>{{ product.name }}</h3>
+        <p class="price">R$ {{ product.price.toFixed(2) }}</p>
+        <button>Comprar</button>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
-  name: "Home",
-};
+  name: 'Home',
+  data() {
+    return {
+      products: [
+        { id: 1, name: 'Camiseta Estampada', price: 49.9, image: 'https://via.placeholder.com/150?text=Camiseta' },
+        { id: 2, name: 'Fone Bluetooth', price: 89.9, image: 'https://via.placeholder.com/150?text=Fone' },
+        { id: 3, name: 'Relógio Digital', price: 129.9, image: 'https://via.placeholder.com/150?text=Relógio' },
+        { id: 4, name: 'Mochila Esportiva', price: 79.9, image: 'https://via.placeholder.com/150?text=Mochila' },
+      ]
+    }
+  }
+}
 </script>
 
 <style scoped>
-/* Estilos adicionais se necessário */
+.products-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  background: #fff5b1;
+  border: 1px solid #ffd966;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 150px;
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.price {
+  color: #b35900;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+button {
+  background: #ffd966;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #003366;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #ffc107;
+}
 </style>
