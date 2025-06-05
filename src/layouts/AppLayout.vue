@@ -117,7 +117,7 @@ header {
 }
 
 main {
-  margin-top: 60px;       /* abaixo do header */
+  margin-top: 70px;       /* abaixo do header */
   margin-bottom: 50px;    /* acima do footer */
   padding: 1rem;
   flex-grow: 1;
