@@ -13,6 +13,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      padding-bottom: 3rem; /* espaço para o footer fixo */
     }
     header {
       background: #ffcc00;
@@ -41,6 +42,7 @@
       background: white;
       border-radius: 8px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      min-height: calc(100vh - 7rem); /* altura para ajustar header+footer */
     }
     button {
       background: #ffcc00;
@@ -54,6 +56,20 @@
     }
     button:hover {
       background-color: #e6b800;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #ffcc00;
+      color: #222;
+      text-align: center;
+      padding: 0.8rem 0;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      user-select: none;
     }
   </style>
 </head>
@@ -69,6 +85,10 @@
 <main id="app">
   <!-- Conteúdo dinâmico vai aqui -->
 </main>
+
+<footer>
+  &copy; 2025 Dropshipping do MercadoLivre - Todos os direitos reservados
+</footer>
 
 <script>
   // Conteúdos das páginas (HTML puros)
