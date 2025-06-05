@@ -1,5 +1,5 @@
 
-# 🌐 Mini SPA Dropshipping com Vue.js
+# 🌐 Mini SPA Dropshipping do MercadoLivre com Vue.js
 
 Este projeto é uma Single Page Application (SPA) feita com **Vue.js** que simula um sistema de navegação para páginas de conteúdo sobre dropshipping. A navegação é gerenciada com `vue-router`, sem recarregamento da página.
 
