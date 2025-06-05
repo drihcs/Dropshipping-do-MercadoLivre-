@@ -73,16 +73,16 @@ header {
 
 .sidebar {
   position: fixed;
-  top: 56px; /* altura do header */
+  top: 60px; /* altura do header */
   left: -220px;
   width: 200px;
-  height: calc(100% - 56px);
+  height: calc(100vh - 60px - 50px);
   background: #fff5b1;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   transition: left 0.3s ease;
   padding: 1rem;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .sidebar.open {
