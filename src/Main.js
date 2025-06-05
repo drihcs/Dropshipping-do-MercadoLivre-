@@ -12,6 +12,10 @@ import Fornecedores from './pages/Fornecedores.vue';
 import GerarItens from './pages/GerarItens.vue';
 import MinhaLoja from './pages/MinhaLoja.vue';
 
+import './assets/css/style.css'
+
+
+
 const routes = [
   {
     path: '/',

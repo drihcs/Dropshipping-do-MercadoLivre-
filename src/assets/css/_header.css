@@ -1,0 +1,22 @@
+header {
+  background: #ffcc00;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.4rem;
+  display: flex;
+  gap: 1rem;
+}
+
+header a {
+  color: #222;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+header a:hover,
+header a.active {
+  background-color: #e6b800;
+}
