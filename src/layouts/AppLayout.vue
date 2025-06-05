@@ -1,93 +1,137 @@
 <template>
-  <div class="app-layout">
-    <aside class="sidebar">
+  <div>
+    <header class="header">
+      <button class="toggle-btn" @click="toggleSidebar">☰</button>
+      <h1>Dropshipping do Mercado Livre</h1>
+    </header>
+
+    <aside :class="['sidebar', { 'sidebar--open': sidebarOpen }]">
       <nav>
-        <router-link to="/" exact-active-class="active-link">Início</router-link>
-        <router-link to="/api" active-class="active-link">API</router-link>
-        <router-link to="/fornecedores" active-class="active-link">Fornecedores</router-link>
-        <router-link to="/gerar-itens" active-class="active-link">Gerar Itens</router-link>
-        <router-link to="/minha-loja" active-class="active-link">Minha Loja</router-link>
+        <router-link to="/" exact-active-class="active">Início</router-link>
+        <router-link to="/api" active-class="active">API</router-link>
+        <router-link to="/fornecedores" active-class="active">Fornecedores</router-link>
+        <router-link to="/gerar-itens" active-class="active">Gerar Itens</router-link>
+        <router-link to="/minha-loja" active-class="active">Minha Loja</router-link>
       </nav>
     </aside>
 
-    <div class="main-content">
-      <header>
-        <h1>Dropshipping do Mercado Livre</h1>
-      </header>
+    <main :class="{ 'main--shifted': sidebarOpen }">
+      <router-view />
+    </main>
 
-      <main>
-        <router-view />
-      </main>
-
-      <footer>
-        &copy; {{ new Date().getFullYear() }} Todos os direitos reservados.
-      </footer>
-    </div>
+    <footer class="footer">
+      © {{ new Date().getFullYear() }} Dropshipping do Mercado Livre. Todos os direitos reservados.
+    </footer>
   </div>
 </template>
 
-<script setup>
-// nenhum código aqui, por enquanto
+<script>
+export default {
+  name: "AppLayout",
+  data() {
+    return {
+      sidebarOpen: false,
+    };
+  },
+  methods: {
+    toggleSidebar() {
+      this.sidebarOpen = !this.sidebarOpen;
+    },
+  },
+};
 </script>
 
 <style scoped>
-.app-layout {
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background-color: #ffeb3b; /* amarelo */
+  color: #1565c0; /* azul */
   display: flex;
-  min-height: 100vh;
+  align-items: center;
+  padding: 0 1rem;
+  font-weight: bold;
+  z-index: 1001;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  color: #1565c0;
+}
+
+/* Sidebar */
 .sidebar {
+  position: fixed;
+  top: 56px; /* abaixo do header */
+  left: 0;
   width: 220px;
-  background: #eee;
+  height: calc(100vh - 56px - 40px); /* altura total menos header e footer */
+  background-color: #ffeb3b; /* amarelo */
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
   padding: 1rem;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 
-.sidebar nav {
-  display: flex;
-  flex-direction: column;
+.sidebar--open {
+  transform: translateX(0);
 }
 
-.sidebar a {
+.sidebar nav a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: #1565c0;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  color: #333;
   border-radius: 4px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
 }
 
-.sidebar a:hover {
-  background-color: #ddd;
+.sidebar nav a.active,
+.sidebar nav a:hover {
+  background-color: #1565c0;
+  color: #ffeb3b;
 }
 
-.active-link {
-  background-color: #3490dc;
-  color: white;
-  font-weight: bold;
-}
-
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-header {
-  background-color: #3490dc;
-  color: white;
-  padding: 1rem;
-  font-size: 1.5rem;
-}
-
+/* Main content */
 main {
-  flex: 1;
+  margin-top: 56px;
   padding: 1rem;
-  background-color: #f9fafb;
+  transition: margin-left 0.3s ease;
+  margin-left: 0;
+  min-height: calc(100vh - 56px - 40px);
 }
 
-footer {
-  background-color: #eee;
-  padding: 1rem;
-  text-align: center;
+.main--shifted {
+  margin-left: 220px;
+}
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background-color: #ffeb3b; /* amarelo */
+  color: #1565c0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
+  z-index: 1001;
 }
 </style>
