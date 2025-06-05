@@ -124,7 +124,7 @@ main {
   background: #fff8dc;
   transition: margin-left 0.3s ease;
   z-index: 100;
-  position: relative;
+  position: center;
 }
 
 
