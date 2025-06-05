@@ -13,21 +13,20 @@
   </aside>
 </template>
 
-<script setup>
-// Sem lógica extra no momento
-</script>
+<script setup></script>
 
 <style scoped>
 .sidebar {
   width: 250px;
   background-color: #ffffff;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
+  z-index: 10;
 }
 
 .sidebar-header {
@@ -38,13 +37,12 @@
 .sidebar-header h2 {
   margin: 0;
   font-size: 1.25rem;
-  font-weight: bold;
 }
 
 .sidebar-nav {
   flex-grow: 1;
   overflow-y: auto;
-  padding: 1rem 0;
+  padding-top: 1rem;
 }
 
 .nav-link {
@@ -53,18 +51,16 @@
   color: #333;
   text-decoration: none;
   border-radius: 4px;
-  transition: background-color 0.2s ease;
   margin: 0 1rem 0.25rem 1rem;
 }
 
 .nav-link:hover {
-  background-color: #e0f0ff;
+  background-color: #f0f8ff;
 }
 
 .active-link {
-  background-color: #bae0ff;
-  font-weight: 600;
-  color: #0057b7;
-  text-decoration: none;
+  background-color: #d0ebff;
+  font-weight: bold;
+  color: #004a99;
 }
 </style>

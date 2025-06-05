@@ -1,16 +1,13 @@
 <template>
-  <div class="flex">
-    <!-- Sidebar -->
+  <div class="layout-container">
     <Sidebar />
 
-    <!-- Conteúdo principal -->
-    <div class="ml-64 flex flex-col min-h-screen w-full">
-      <main class="flex-1 p-6 bg-gray-50">
+    <div class="main-content">
+      <main class="main-area">
         <router-view />
       </main>
 
-      <!-- Footer -->
-      <footer class="bg-gray-200 text-center text-sm text-gray-600 py-3 border-t">
+      <footer class="footer">
         &copy; {{ new Date().getFullYear() }} Dropshipping do MercadoLivre. Todos os direitos reservados.
       </footer>
     </div>
@@ -18,16 +15,41 @@
 </template>
 
 <script>
-import Sidebar from "./Sidebar.vue";
+import Sidebar from './Sidebar.vue'
 
 export default {
-  name: "AppLayout",
+  name: 'AppLayout',
   components: {
     Sidebar,
   },
-};
+}
 </script>
 
 <style scoped>
-/* Se precisar de estilos específicos para o layout, pode colocar aqui */
+.layout-container {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 250px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.main-area {
+  flex: 1;
+  padding: 24px;
+}
+
+.footer {
+  text-align: center;
+  padding: 12px;
+  background-color: #e9ecef;
+  font-size: 14px;
+  color: #555;
+  border-top: 1px solid #ccc;
+}
 </style>
