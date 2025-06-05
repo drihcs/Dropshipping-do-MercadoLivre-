@@ -1,45 +1,93 @@
 <template>
-  <div>
-    <!-- Sidebar oculta -->
-    <aside
-      v-show="sidebarVisible"
-      class="fixed top-0 left-0 w-64 h-full bg-white shadow z-50 p-4 overflow-y-auto"
-    >
-      <button @click="toggleSidebar" class="text-red-600 font-bold mb-4">✕ Fechar</button>
-      <nav class="flex flex-col space-y-2">
-        <router-link to="/" class="hover:underline" exact>Início</router-link>
-        <router-link to="/api" class="hover:underline">API</router-link>
-        <router-link to="/fornecedores" class="hover:underline">Fornecedores</router-link>
-        <router-link to="/gerar-itens" class="hover:underline">Gerar Itens</router-link>
-        <router-link to="/minha-loja" class="hover:underline">Minha Loja</router-link>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <nav>
+        <router-link to="/" exact-active-class="active-link">Início</router-link>
+        <router-link to="/api" active-class="active-link">API</router-link>
+        <router-link to="/fornecedores" active-class="active-link">Fornecedores</router-link>
+        <router-link to="/gerar-itens" active-class="active-link">Gerar Itens</router-link>
+        <router-link to="/minha-loja" active-class="active-link">Minha Loja</router-link>
       </nav>
     </aside>
 
-    <!-- Header fixo -->
-    <header class="bg-blue-600 text-white p-4 flex justify-between items-center fixed w-full top-0 z-40">
-      <button @click="toggleSidebar" class="text-white font-bold text-xl">☰</button>
-      <h1 class="text-xl">Dropshipping do Mercado Livre</h1>
-    </header>
+    <div class="main-content">
+      <header>
+        <h1>Dropshipping do Mercado Livre</h1>
+      </header>
 
-    <!-- Espaço após header -->
-    <div class="h-20"></div>
+      <main>
+        <router-view />
+      </main>
 
-    <!-- Conteúdo principal -->
-    <main class="p-6 pb-20">
-      <router-view />
-    </main>
-
-    <!-- Footer fixo -->
-    <footer class="bg-blue-100 text-center text-sm p-4 w-full fixed bottom-0 z-30">
-      © 2025 Dropshipping do Mercado Livre. Todos os direitos reservados.
-    </footer>
+      <footer>
+        &copy; {{ new Date().getFullYear() }} Todos os direitos reservados.
+      </footer>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const sidebarVisible = ref(false)
-const toggleSidebar = () => {
-  sidebarVisible.value = !sidebarVisible.value
-}
+// nenhum código aqui, por enquanto
 </script>
+
+<style scoped>
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #eee;
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar a {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  color: #333;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar a:hover {
+  background-color: #ddd;
+}
+
+.active-link {
+  background-color: #3490dc;
+  color: white;
+  font-weight: bold;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: #3490dc;
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+main {
+  flex: 1;
+  padding: 1rem;
+  background-color: #f9fafb;
+}
+
+footer {
+  background-color: #eee;
+  padding: 1rem;
+  text-align: center;
+}
+</style>
