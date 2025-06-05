@@ -1,128 +1,147 @@
 <template>
-  <div class="app-container">
-    <header>
-      <button @click="toggleSidebar" class="btn-menu">☰</button>
+  <div>
+    <!-- Header -->
+    <header class="header">
       <h1>Dropshipping do Mercado Livre</h1>
+      <nav>
+        <router-link to="/" exact-active-class="active-link">Início</router-link>
+        <router-link to="/api" exact-active-class="active-link">API</router-link>
+        <router-link to="/fornecedores" exact-active-class="active-link">Fornecedores</router-link>
+        <router-link to="/gerar-itens" exact-active-class="active-link">Gerar Itens</router-link>
+        <router-link to="/minha-loja" exact-active-class="active-link">Minha Loja</router-link>
+      </nav>
     </header>
 
-    <aside :class="['sidebar', { open: sidebarOpen }]">
+    <!-- Sidebar -->
+    <aside class="sidebar">
       <nav>
-        <router-link to="/" exact-active-class="active" @click.native="closeSidebar">Início</router-link>
-        <router-link to="/api" active-class="active" @click.native="closeSidebar">API</router-link>
-        <router-link to="/fornecedores" active-class="active" @click.native="closeSidebar">Fornecedores</router-link>
-        <router-link to="/gerar-itens" active-class="active" @click.native="closeSidebar">Gerar Itens</router-link>
-        <router-link to="/minha-loja" active-class="active" @click.native="closeSidebar">Minha Loja</router-link>
+        <router-link to="/" exact-active-class="active-link">Início</router-link>
+        <router-link to="/api" exact-active-class="active-link">API</router-link>
+        <router-link to="/fornecedores" exact-active-class="active-link">Fornecedores</router-link>
+        <router-link to="/gerar-itens" exact-active-class="active-link">Gerar Itens</router-link>
+        <router-link to="/minha-loja" exact-active-class="active-link">Minha Loja</router-link>
       </nav>
     </aside>
 
-    <main :class="{ 'sidebar-open': sidebarOpen }" @click="closeSidebar">
+    <!-- Conteúdo principal -->
+    <main class="main-content">
       <router-view />
     </main>
 
-    <footer>
-      © 2025 Dropshipping do Mercado Livre. Todos os direitos reservados.
+    <!-- Footer -->
+    <footer class="footer">
+      &copy; {{ new Date().getFullYear() }} Dropshipping do Mercado Livre. Todos os direitos reservados.
     </footer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AppLayout',
-  data() {
-    return {
-      sidebarOpen: false
-    }
-  },
-  methods: {
-    toggleSidebar() {
-      this.sidebarOpen = !this.sidebarOpen;
-    },
-    closeSidebar() {
-      this.sidebarOpen = false;
-    }
-  }
-}
+  name: "AppLayout",
+};
 </script>
 
-<style>
-.app-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  color: #003366; /* azul escuro */
-  background: #fff8dc; /* amarelo claro */
+<style scoped>
+/* Variáveis de cores */
+:root {
+  --amarelo: #fff5b1;
+  --azul: #004aad;
 }
 
-header {
-  background: #ffdb58; /* amarelo forte */
-  color: #003366;
-  padding: 1rem;
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: var(--amarelo);
+  color: var(--azul);
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1100;
+  font-weight: bold;
 }
 
-.btn-menu {
-  font-size: 1.5rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #003366;
+.header h1 {
+  font-size: 1.25rem;
 }
 
+.header nav a {
+  color: var(--azul);
+  margin-left: 1rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.header nav a.active-link {
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+/* Sidebar */
 .sidebar {
   position: fixed;
-  top: 56px; /* altura do header */
-  left: -220px;
-  width: 200px;
-  height: calc(100% - 56px);
-  background: #fff5b1;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  transition: left 0.3s ease;
-  padding: 1rem;
-  overflow-y: auto;
-  z-index: 1000;
-}
-
-.sidebar.open {
+  top: 60px; /* altura do header */
   left: 0;
+  width: 220px;
+  height: calc(100vh - 60px - 50px); /* tela menos header e footer */
+  background-color: var(--amarelo);
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  overflow-y: auto;
+  z-index: 1050;
 }
 
 .sidebar nav a {
   display: block;
-  padding: 0.5rem 0.75rem;
-  margin-bottom: 0.3rem;
-  color: #003366;
+  color: var(--azul);
   text-decoration: none;
+  padding: 0.5rem 0.75rem;
   border-radius: 4px;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
 }
 
-.sidebar nav a.active,
-.sidebar nav a:hover {
-  background: #ffd966;
-  font-weight: bold;
+.sidebar nav a.active-link {
+  background-color: #e6d961;
+  font-weight: 700;
+  text-decoration: underline;
 }
 
-main {
-  margin-top: 56px;
-  padding: 1rem;
-  flex-grow: 1;
-  transition: margin-left 0.3s ease;
+/* Main Content */
+.main-content {
+  margin-top: 60px; /* espaço do header */
+  margin-left: 220px; /* espaço da sidebar */
+  margin-bottom: 50px; /* espaço do footer */
+  padding: 1.5rem;
+  min-height: calc(100vh - 60px - 50px);
+  background-color: #f9f9f9;
 }
 
-main.sidebar-open {
-  margin-left: 200px;
-}
-
-footer {
-  background: #ffdb58;
-  color: #003366;
-  padding: 0.75rem;
-  text-align: center;
+/* Footer */
+.footer {
   position: fixed;
   bottom: 0;
+  left: 0;
+  height: 50px;
   width: 100%;
-  font-size: 0.9rem;
+  background-color: #f7f2d5;
+  color: var(--azul);
+  text-align: center;
+  line-height: 50px;
+  font-size: 0.875rem;
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+  z-index: 1100;
 }
 </style>
